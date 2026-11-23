@@ -1,0 +1,414 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    font-size: medium;
+    background-color: #36136E;
+    color: white;
+
+    /* GRID AREAS */
+    display: grid;
+    grid-template-areas:
+        "sidebar navbar"
+        "sidebar main"
+        "footer footer";
+
+    grid-template-columns: 165px 1fr 1fr;
+    grid-template-rows: 70px 1fr 60px;
+}
+
+/*
+   2. NAVBAR - FLEXBOX
+*/
+
+.navbar {
+    font-family: Arial, sans-serif;
+    width: 100%;
+    height: 100px;
+    display: grid;
+    grid-template-areas: "logo  navbar-links profile";
+    background-color: #242547;
+    box-sizing: border-box;
+    gap: 60px;
+    color: white;
+    align-items: center;
+    padding: 25px 30px;
+    border-radius: 25px;
+    justify-items: center;
+    margin: 0;
+    margin-left: 3px;
+    cursor: pointer;
+
+
+}
+
+.logo {
+
+    margin: 0;
+    padding: 0;
+
+}
+
+.navbar a {
+    text-decoration: none;
+    color: white;
+    align-items: center;
+}
+
+.navbar-links {
+    font-family: Arial, sans-serif;
+    display: flex;
+    color: white;
+    font-size: 16px;
+    justify-content: center;
+    justify-content: center;
+    gap: 25px;
+}
+
+.nav_link_button_a {
+    background-color: #882ECA;
+    color: white;
+    font-size: 16px;
+    width: 175px;
+    height: 65px;
+    border: none;
+    border-radius: 35px;
+    cursor: pointer;
+}
+
+.nav_link_button_b {
+    background-color: #61D29A;
+    color: white;
+    font-size: 16px;
+    width: 175px;
+    height: 65px;
+    border: none;
+    border-radius: 35px;
+    cursor: pointer;
+}
+
+.nav_link_button_c {
+    background-color: #36136E;
+    color: white;
+    font-size: 16px;
+    width: 175px;
+    height: 65px;
+    border: none;
+    border-radius: 35px;
+    cursor: pointer;
+}
+
+.nav_link_button_d {
+    background-color: #B495A4;
+    color: white;
+    font-size: 16px;
+    width: 175px;
+    height: 65px;
+    border: none;
+    border-radius: 35px;
+    cursor: pointer;
+}
+
+.profile {
+    display: flex;
+    align-items: left;
+    gap: 10px;
+}
+
+.profile img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+}
+
+
+/* 
+   3. SIDEBAR
+ */
+
+.sidebar {
+    grid-area: sidebar;
+    display: flex;
+    flex-direction: column;
+    background-color: #242547;
+    padding: 25px 20px;
+    border-radius: 25px;
+    border-right: 2px #36136E;
+    border-bottom: 2px #36136E;
+    font-size: 16px;
+    color: white;
+    height: 100%;
+}
+
+.sidebar a {
+    text-decoration: none;
+    color: white;
+    cursor: pointer;
+}
+
+.sidebar a:hover {
+    text-decoration: none;
+    color: white;
+}
+
+.sidebar_menu_button {
+    background-color: #882ECA;
+    color: white;
+    font-size: 16px;
+    width: 175px;
+    height: 65px;
+    border: none;
+    border-radius: 35px;
+    cursor: pointer;
+}
+
+/* 
+   4. MAIN CONTENT
+ */
+
+.main_profile_image {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.welcome {
+    color: white;
+    margin: 0;
+
+
+}
+
+.main-content {
+    grid-area: main;
+    display: grid;
+    grid-template-areas: "hero_section"
+        "statesitics";
+    grid-template-columns: 1fr;
+    margin-top: 35px;
+}
+
+.hero_section {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    background-color: #882ECA;
+    color: white;
+    border-radius: 25px;
+    margin: 30px;
+    padding: 25px;
+    gap: 25px;
+
+
+}
+
+main {
+    background-color: #242547;
+    border-radius: 25px;
+    margin-left: 10px;
+    margin-top: 35px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    padding: 25px;
+    gap: 25px
+}
+
+/* 
+   5. STATISTICS - GRID
+*/
+.card {
+    background-color: #61D29A;
+    color: aliceblue;
+    text-align: center;
+    border-radius: 10px;
+    height: 100%;
+    overflow: hidden;
+    border: none;
+}
+
+.statistics-img {
+    width: 100%;
+    height: 150px;
+    object-fit: contain;
+    padding: 10px;
+}
+
+.card-body {
+    padding: 15px;
+}
+
+.card-title {
+    font-size: 24px;
+}
+
+.card-text {
+    font-size: 16px;
+}
+
+
+.footer {
+    grid-area: footer;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-areas: "about  quick_link  footer-contact";
+    background-color: #242547;
+    color: white;
+    box-sizing: border-box;
+    border-radius: 25px;
+    align-items: center;
+    font-size: 12px;
+    margin-bottom: 0px;
+    width: 100%;
+    height: 500px;
+    gap: 25px;
+    margin-left: 0px;
+    margin-top: 10px;
+}
+
+.about {
+    grid-area: about;
+    display: flex;
+    flex-direction: column;
+    font-size: 20px;
+    gap: 15;
+    justify-content: left;
+
+}
+
+.quick_link {
+    display: flex;
+    flex-direction: column;
+    font-weight: 16px;
+    justify-content: center;
+}
+
+.quick_link a {
+    color: white;
+    text-decoration: none;
+}
+
+.quick_link a:hover {
+    color: #61D29A;
+}
+
+.footer-contact {
+    display: flex;
+    gap: 15px;
+    margin-top: 15px;
+    justify-content: right;
+}
+
+.footer-contact a {
+    color: white;
+    font-size: 20px;
+}
+
+/* Copyright */
+
+.copyright {
+    grid-area: copyright;
+    text-align: center;
+    border-top: 1px solid #B495A4;
+    padding-top: 15px;
+}
+
+/* 
+   8. LARGE SCREENS
+*/
+
+@media (min-width: 1200px) {
+
+    body {
+        grid-template-columns: 250px 1fr;
+    }
+
+    .courses-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+
+
+/* 
+   90333
+   . MOBILE
+ */
+
+@media (max-width: 425px) {
+
+    body {
+        grid-template-areas:
+            "navbar"
+            "main"
+            "sidebar"
+            "footer";
+
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto 1fr auto;
+    }
+
+    .navbar {
+        flex-direction: column;
+        gap: 15px;
+        height: auto;
+        padding: 15px;
+    }
+
+    .nav-links {
+        gap: 15px;
+    }
+
+    .profile img {
+        display: none;
+    }
+
+    .main-content {
+        padding: 15px;
+    }
+
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+    .courses-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .course-card img {
+        width: 100%;
+    }
+
+    .course-info {
+        text-align: center;
+    }
+
+    .sidebar {
+        grid-area: sidebar;
+        border-right: none;
+        border-bottom: 1px solid #ddd;
+        padding: 15px;
+    }
+
+    .sidebar ul {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    .sidebar li {
+        margin-bottom: 0;
+    }
+
+    .footer {
+        text-align: center;
+        font-size: 13px;
+    }
+
+}
