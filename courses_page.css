@@ -1,0 +1,171 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+     display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "sidebar main_content";
+    margin: 0;
+    padding: 30px;
+    font-family: Arial, sans-serif;
+    background-color: #242547;
+    color: white;
+}
+.sidebar {
+    grid-area: sidebar;
+    display: flex;
+    flex-direction: column;
+    background-color: #242547;
+    padding: 25px 20px;
+    border-radius: 25px;
+    border-right: 2px #36136E;
+    border-bottom: 2px #36136E;
+    font-size: 16px;
+    color: white;
+    height: 100%;
+}
+
+.sidebar a {
+    text-decoration: none;
+    color: white;
+    cursor: pointer;
+}
+
+.sidebar a:hover {
+    text-decoration: none;
+    color: white;
+}
+
+.sidebar_menu_button {
+    background-color: #882ECA;
+    color: white;
+    font-size: 16px;
+    width: 175px;
+    height: 65px;
+    border: none;
+    border-radius: 35px;
+    cursor: pointer;
+}
+
+
+h1 {
+    color: white;
+    margin-bottom: 25px;
+}
+
+h2 {
+    color: white;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+/* Form */
+
+form {
+    background-color: #36136E;
+    padding: 25px;
+    border-radius: 12px;
+    max-width: 700px;
+    border-top: 5px solid #61D29A;
+}
+
+label {
+    display: block;
+    color: #B495A4;
+    margin-bottom: 8px;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #B495A4;
+    border-radius: 6px;
+    margin-bottom: 18px;
+    background-color: #242547;
+    color: white;
+}
+
+input:focus,
+select:focus {
+    outline: 2px solid #882ECA;
+}
+
+/* Buttons */
+
+button {
+    background-color: #61D29A;
+    color: #242547;
+    border: none;
+    padding: 11px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin: 4px;
+    font-weight: bold;
+}
+
+button:hover {
+    opacity: 0.85;
+}
+
+/* Table */
+
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #36136E;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+th,
+td {
+    padding: 14px;
+    text-align: left;
+    border-bottom: 1px solid #B495A4;
+}
+
+th {
+    color: #61D29A;
+}
+
+td {
+    color: white;
+}
+
+td button {
+    background-color: #882ECA;
+    color: white;
+}
+
+/* Responsive */
+
+@media (max-width: 800px) {
+
+    body {
+        padding: 20px;
+    }
+
+    table {
+        min-width: 750px;
+    }
+
+}
+
+@media (max-width: 450px) {
+
+    body {
+        padding: 15px;
+    }
+
+    form {
+        padding: 18px;
+    }
+
+}

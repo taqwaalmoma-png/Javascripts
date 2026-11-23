@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="courses_page.css">
+</head>
+
+<body>
+    <section class="main_content">
+        <h1>Courses Management</h1>
+
+        <h2>add new course</h2>
+
+        <form id="courseForm">
+
+            <label>courseName</label>
+            <input type="text" id="courseName" required>
+            <br><br>
+
+            <label>credit hours</label>
+            <input type="number" min="1" id="creditHours" required>
+            <br><br>
+
+            <label>start date</label>
+            <input type="date" id="startDate" required>
+            <br><br>
+
+            <label>end date</label>
+            <input type="date" id="endDate" required>
+            <br><br>
+
+            <label>instructor Name</label>
+            <input type="text" id="instructorName" required>
+            <br><br>
+
+            <label>class room</label>
+            <input type="text" id="classroom" required>
+            <br><br>
+
+            <label>course status</label>
+            <select id="courseStatus">
+                <option>in progress</option>
+                <option>completed</option>
+                <option>dropped</option>
+            </select>
+            <br><br>
+
+            <button type="submit">add course</button>
+
+        </form>
+        
+
+        <h2>all course</h2>
+        <label>Filter Courses</label>
+
+        <select id="filterStatus">
+            <option value="all">all courses</option>
+            <option value="in progress">in progress</option>
+            <option value="completed">completed</option>
+            <option value="dropped">dropped</option>
+        </select>
+
+        <br>
+        <br>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>courseName</th>
+                    <th>credit hours</th>
+                    <th>start date</th>
+                    <th>end date</th>
+                    <th>instructor Name</th>
+                    <th>classroom</th>
+                    <th>status</th>
+                    <th>action</th>
+                </tr>
+            </thead>
+
+            <tbody id="courseTable"></tbody>
+        </table>
+    </section>
+    <aside class="sidebar">
+
+            <h2>Coding Up Menu</h2>
+            <br>
+            <br>
+            <br>
+            <div class="sidebar-links">
+
+                <a class="sidebar_menu_button  dash_button" href="javascript_projects.html"> Dashboard</a><br><br>
+                <a class="sidebar_menu_button  courses_page_button" href="courses_page.html"> Courses Page</a><br><br>
+                <a class="sidebar_menu_button  assignment_button" href="assignment_page.html"> Assignments Page</a><br><br>
+                <a class="sidebar_menu_button  dash_button" href="assignment_page.html"> Schedule</a><br><br>
+
+
+            </div>
+
+            <div class="account">
+                <a class="sidebar_menu_button  student_info_page_button" href="student_info_page.html">Personal
+                    Account</a><br><br>
+                <a class="sidebar_menu_button" href="#"> Help $ supporte</a><br><br>
+                <a class="sidebar_menu_button" href="#"> Settings</a><br><br>
+                <a class="sidebar_menu_button  student_info_page_button" href="assignment_page.html"> logout</a><br><br>
+
+
+            </div>
+
+        </aside>
+    <script>
+
+        let courses = JSON.parse(localStorage.getItem("courses"));
+
+        let courseName = document.getElementById("courseName");
+        let credithours = document.getElementById("creditHours");
+        let startDate = document.getElementById("startDate");
+        let endDate = document.getElementById("endDate");
+        let instructorName = document.getElementById("instructorName");
+        let classroom = document.getElementById("classroom");
+        let courseStatus = document.getElementById("courseStatus");
+
+        let editingIndex = -1;
+
+
+        function addcourse(event) {
+
+            event.preventDefault();
+
+            let course = {
+
+                name: courseName.value,
+                hours: credithours.value,
+                start: startDate.value,
+                end: endDate.value,
+                instructor: instructorName.value,
+                room: classroom.value,
+                status: courseStatus.value
+
+            };
+
+            if (course.start > course.end) {
+                alert("End date must be after start date");
+                return;
+            }
+
+            if (editingIndex == -1) {
+
+                courses.push(course);
+                alert("course added");
+
+            } else {
+
+                courses[editingIndex] = course;
+                editingIndex = -1;
+                alert("course updated");
+
+            }
+
+            localStorage.setItem("courses", JSON.stringify(courses));
+
+            displayCourses();
+
+            document.getElementById("courseForm").reset();
+
+        }
+
+
+        function displayCourses() {
+
+            let table = document.getElementById("courseTable");
+
+            table.innerHTML = "";
+            let filter = document.getElementById("filterStatus").value;
+
+
+            for (let i = 0; i < courses.length; i++) {
+
+                if (filter != "all" && courses[i].status != filter) {
+                    continue;
+                }
+
+                let row = table.insertRow();
+
+                row.insertCell(0).innerHTML = courses[i].name;
+                row.insertCell(1).innerHTML = courses[i].hours;
+                row.insertCell(2).innerHTML = courses[i].start;
+                row.insertCell(3).innerHTML = courses[i].end;
+                row.insertCell(4).innerHTML = courses[i].instructor;
+                row.insertCell(5).innerHTML = courses[i].room;
+                row.insertCell(6).innerHTML = courses[i].status;
+
+                row.insertCell(7).innerHTML =
+                    '<button onclick="editCourse(' + i + ')">Edit</button> ' +
+                    '<button onclick="deleteCourse(' + i + ')">Delete</button>';
+
+            }
+
+        }
+
+
+        function deleteCourse(index) {
+
+            courses.splice(index, 1);
+
+            localStorage.setItem("courses", JSON.stringify(courses));
+
+            displayCourses();
+
+        }
+
+
+        function editCourse(index) {
+
+            courseName.value = courses[index].name;
+            credithours.value = courses[index].hours;
+            startDate.value = courses[index].start;
+            endDate.value = courses[index].end;
+            instructorName.value = courses[index].instructor;
+            classroom.value = courses[index].room;
+            courseStatus.value = courses[index].status;
+
+            editingIndex = index;
+
+        }
+
+
+        document.getElementById("courseForm")
+            .addEventListener("submit", addcourse);
+        document.getElementById("filterStatus")
+            .addEventListener("change", displayCourses);
+
+
+
+        displayCourses();
+
+    </script>
+
+</body>
+
+</html>

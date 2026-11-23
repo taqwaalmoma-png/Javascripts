@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Assignments Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="assignment_page.css">
+
+</head>
+
+<body>
+    <sction  class="main_content">
+        <h1>Assignments Management</h1>
+
+        <h2>Add New Assignment</h2>
+
+        <form id="assignmentForm">
+
+            <label>Assignment Title</label>
+            <input type="text" id="assignmentTitle" required>
+            <br><br>
+
+            <label>Associated Course</label>
+            <select id="associatedCourse" required>
+                <option value="">Select a course</option>
+            </select>
+            <br><br>
+
+            <label>Deadline</label>
+            <input type="date" id="deadline" required>
+            <br><br>
+
+            <label>Assignment Status</label>
+            <select id="assignmentStatus">
+                <option>To Do</option>
+                <option>Doing</option>
+                <option>Done</option>
+            </select>
+            <br><br>
+
+            <button type="submit" id="submitButton">Add Assignment</button>
+
+        </form>
+        <aside class="sidebar">
+
+            <h2>Coding Up Menu</h2>
+            <br>
+            <br>
+            <br>
+            <div class="sidebar-links">
+
+                <a class="sidebar_menu_button  dash_button" href="javascript_projects.html"> Dashboard</a><br><br>
+                <a class="sidebar_menu_button  courses_page_button" href="courses_page.html"> Courses Page</a><br><br>
+                <a class="sidebar_menu_button  assignment_button" href="assignment_page.html"> Assignments Page</a><br><br>
+                <a class="sidebar_menu_button  dash_button" href="assignment_page.html"> Schedule</a><br><br>
+
+
+            </div>
+
+            <div class="account">
+                <a class="sidebar_menu_button  student_info_page_button" href="student_info_page.html">Personal
+                    Account</a><br><br>
+                <a class="sidebar_menu_button" href="#"> Help $ supporte</a><br><br>
+                <a class="sidebar_menu_button" href="#"> Settings</a><br><br>
+                <a class="sidebar_menu_button  student_info_page_button" href="assignment_page.html"> logout</a><br><br>
+
+
+            </div>
+
+        </aside>
+
+        <h2>All Assignments</h2>
+
+        <table border="1">
+
+            <thead>
+                <tr>
+                    <th>Assignment Title</th>
+                    <th>Course</th>
+                    <th>Deadline</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody id="assignmentTable"></tbody>
+
+        </table>
+    <section></section>
+    <aside class="sidebar">
+
+            <h2>Coding Up Menu</h2>
+            <br>
+            <br>
+            <br>
+            <div class="sidebar-links">
+
+                <a class="sidebar_menu_button  dash_button" href="javascript_projects.html"> Dashboard</a><br><br>
+                <a class="sidebar_menu_button  courses_page_button" href="courses_page.html"> Courses Page</a><br><br>
+                <a class="sidebar_menu_button  assignment_button" href="assignment_page.html"> Assignments Page</a><br><br>
+                <a class="sidebar_menu_button  dash_button" href="assignment_page.html"> Schedule</a><br><br>
+
+
+            </div>
+
+            <div class="account">
+                <a class="sidebar_menu_button  student_info_page_button" href="student_info_page.html">Personal
+                    Account</a><br><br>
+                <a class="sidebar_menu_button" href="#"> Help $ supporte</a><br><br>
+                <a class="sidebar_menu_button" href="#"> Settings</a><br><br>
+                <a class="sidebar_menu_button  student_info_page_button" href="assignment_page.html"> logout</a><br><br>
+
+
+            </div>
+
+    </aside>
+    <script>
+
+        let assignments = JSON.parse(localStorage.getItem("assignments")) || [];
+
+        let courses = JSON.parse(localStorage.getItem("courses")) || [];
+
+        let assignmentTitle = document.getElementById("assignmentTitle");
+        let associatedCourse = document.getElementById("associatedCourse");
+        let deadline = document.getElementById("deadline");
+        let assignmentStatus = document.getElementById("assignmentStatus");
+
+        let editingIndex = -1;
+
+
+        // Load courses
+
+        for (let i = 0; i < courses.length; i++) {
+
+            let option = document.createElement("option");
+
+            option.value = courses[i].name;
+
+            option.text = courses[i].name;
+
+            associatedCourse.add(option);
+
+        }
+
+
+        // Add assignment
+
+        function addAssignment(event) {
+
+            event.preventDefault();
+
+            let assignment = {
+
+                title: assignmentTitle.value,
+                course: associatedCourse.value,
+                deadline: deadline.value,
+                status: assignmentStatus.value
+
+            };
+
+            if (editingIndex == -1) {
+
+                assignments.push(assignment);
+                alert("Assignment added");
+
+            } else {
+
+                assignments[editingIndex] = assignment;
+                editingIndex = -1;
+                alert("Assignment updated");
+
+            }
+
+            localStorage.setItem("assignments", JSON.stringify(assignments));
+
+            displayAssignments();
+
+            document.getElementById("assignmentForm").reset();
+
+            document.getElementById("submitButton").innerHTML = "Add Assignment";
+
+        }
+
+
+        // Display assignments
+
+        function displayAssignments() {
+
+            let table = document.getElementById("assignmentTable");
+
+            table.innerHTML = "";
+
+            for (let i = 0; i < assignments.length; i++) {
+
+                let row = table.insertRow();
+
+                row.insertCell(0).innerHTML = assignments[i].title;
+
+                row.insertCell(1).innerHTML = assignments[i].course;
+
+                row.insertCell(2).innerHTML = assignments[i].deadline;
+
+                row.insertCell(3).innerHTML = assignments[i].status;
+
+                row.insertCell(4).innerHTML =
+                    '<button onclick="editAssignment(' + i + ')">Edit</button> ' +
+                    '<button onclick="deleteAssignment(' + i + ')">Delete</button>';
+
+            }
+
+        }
+
+
+        // Delete assignment
+
+        function deleteAssignment(index) {
+
+            assignments.splice(index, 1);
+
+            localStorage.setItem("assignments", JSON.stringify(assignments));
+
+            displayAssignments();
+
+        }
+
+
+        // Edit assignment
+
+        function editAssignment(index) {
+
+            assignmentTitle.value = assignments[index].title;
+
+            associatedCourse.value = assignments[index].course;
+
+            deadline.value = assignments[index].deadline;
+
+            assignmentStatus.value = assignments[index].status;
+
+            editingIndex = index;
+
+            document.getElementById("submitButton").innerHTML = "Update Assignment";
+
+        }
+
+
+        // Submit form
+
+        document.getElementById("assignmentForm")
+            .addEventListener("submit", addAssignment);
+
+
+        displayAssignments();
+
+    </script>
+
+</body>
+
+</html>
