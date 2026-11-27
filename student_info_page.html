@@ -13,21 +13,40 @@
 
     <nav class="navbar ">
         <h2 class="logo">Code Up Academy</h2>
-        <div class="navbar-links">
-            <a class="nav_link_button_a   dash_button"  href="javascript_projects.html"> Dashboard</a>
-            <a class="nav_link_button_b   courses_page_button" href="courses_page.html"> Courses Page</a>
-            <a class="nav_link_button_c   assignment_button" href="assignment_page.html"> Assignments Page</a>
-            <a class="nav_link_button_d   info_page_button" href="student_info_page.html"> Student Info Page</a>
 
-        </div>
-
-        <div class="profile">
-            <img src="https://tse2.mm.bing.net/th/id/OIP.M1epdPIvWxZJb6hqqomitgHaHa?r=0&rs=1&pid=ImgDetMain&o=7&rm=3"
-                alt="Profile">
-            <a  class="info_page_button" href="student_info_page.html"> Taqwa</a>
-        </div>
+       
     </nav>
+    <!-- Sidebar -->
+    <aside class="sidebar">
 
+        <h2>Coding Up Menu</h2>
+        <br>
+        <br>
+        <br>
+        <div class="sidebar-links">
+           
+            <a class="sidebar_menu_button  dash_button"  href="javascript_projects.html"> Dashboard</a><br><br>
+            <a class="sidebar_menu_button  courses_page_button" href="courses_page.html"> Courses Page</a><br><br>
+            <a class="sidebar_menu_button  assignment_button"  href="assignment_page.html"> Assignments Page</a><br><br>
+            <a class="sidebar_menu_button  dash_button"  href="assignment_page.html"> Schedule</a><br><br>
+
+
+        </div>
+
+        <div class="account">
+            <a  class="sidebar_menu_button  student_info_page_button" href="student_info_page.html">Personal Account</a><br><br>
+            <a class="sidebar_menu_button" href="#"> Help $ supporte</a><br><br>
+            <a class="sidebar_menu_button"  href="#"> Settings</a><br><br>
+            <a class="sidebar_menu_button  student_info_page_button" href="assignment_page.html"> logout</a><br><br>
+
+
+        </div>
+         <div class="profile">
+            <img src="https://tse2.mm.bing.net/th/id/OIP.M1epdPIvWxZJb6hqqomitgHaHa?r=0&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Profile">
+            <button type="button " class="info_page_button" >Taqwa</button>
+        </div>
+
+    </aside>
 
     <main class="main-content  container-fluid">
 
@@ -89,6 +108,7 @@
         </div>
 
         <div class="footer-contact">
+
             <h2><b>Follow Us </b></h2>
             <a class="icon-link" href="#">
                 <svg xmlns="http://www.w3.org/2000/svg" class="bi" width="40px " height="40px" aria-hidden="true"
@@ -155,7 +175,7 @@
             window.location.href = "student_info_page.html";
         }
 
-*/
+*//*
         function saveStudentInfo() {
 
             let student = {
@@ -267,7 +287,70 @@
         });
 
         loadStudentInfo();
-        
+*/
+        // Default Student Information
+        const defaultStudentInfo = {
+            fullName: "Taqwa Ahmad Hasan Al-momani",
+            birthDate: "2003-08-08",
+            major: "Biomedical Engineering",
+            nationality: "Jordanian"
+        };
+
+        // Load Student Information
+        function loadStudentInfo() {
+
+            let studentInfo = JSON.parse(localStorage.getItem("studentInfo"));
+
+            // If there is no saved information, use default information
+            if (studentInfo === null) {
+                studentInfo = defaultStudentInfo;
+                localStorage.setItem("studentInfo", JSON.stringify(studentInfo));
+            }
+
+            document.getElementById("fullname").value = studentInfo.fullName;
+            document.getElementById("date_of_birth").value = studentInfo.birthDate;
+            document.getElementById("major").value = studentInfo.major;
+            document.getElementById("nationality").value = studentInfo.nationality;
+        }
+
+
+        // Save / Update Student Information
+        function saveStudentInfo() {
+
+            const student = {
+                fullName: document.getElementById("fullname").value.trim(),
+                birthDate: document.getElementById("date_of_birth").value,
+                major: document.getElementById("major").value.trim(),
+                nationality: document.getElementById("nationality").value.trim()
+            };
+
+            // Validate the form
+            if (
+                student.fullName === "" ||
+                student.birthDate === "" ||
+                student.major === "" ||
+                student.nationality === ""
+            ) {
+                alert("Please fill in all fields.");
+                return;
+            }
+
+            // Save updated information
+            localStorage.setItem("studentInfo", JSON.stringify(student));
+
+            alert("Student information saved successfully!");
+        }
+
+
+        // Connect Save Button with Function
+        document.getElementById("save_change_button")
+            .addEventListener("click", saveStudentInfo);
+
+
+        // Load information when the page opens
+        loadStudentInfo();
+
+                
     </script>
 
 </body>

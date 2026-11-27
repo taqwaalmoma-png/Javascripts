@@ -15,19 +15,9 @@
 
     <!-- Navbar -->
     <nav class="navbar ">
-        <h2 class="logo">Code Up Academy</h2>
+        <h2 class="logo">   Code Up Academy</h2>
 
-        <div class="navbar-links">
-            <a class="nav_link_button_a   dash_button"  href="javascript_projects.html"> Dashboard</a>
-            <a class="nav_link_button_b   courses_page_button" href="courses_page.html"> Courses Page</a>
-            <a class="nav_link_button_c   assignment_button" href="assignment_page.html"> Assignments Page</a>
-            <a class="nav_link_button_d   info_page_button" href="student_info_page.html"> Student Info Page</a>
-
-        </div>
-        <div class="profile">
-            <img src="https://tse2.mm.bing.net/th/id/OIP.M1epdPIvWxZJb6hqqomitgHaHa?r=0&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Profile">
-            <button type="button " class="info_page_button" >Taqwa</button>
-        </div>
+       
     </nav>
 
     <!-- Sidebar -->
@@ -48,12 +38,21 @@
         </div>
 
         <div class="account">
+            <br>
+             <br>
+            <br>
+            <br>
+
             <a  class="sidebar_menu_button  student_info_page_button" href="student_info_page.html">Personal Account</a><br><br>
             <a class="sidebar_menu_button" href="#"> Help $ supporte</a><br><br>
             <a class="sidebar_menu_button"  href="#"> Settings</a><br><br>
             <a class="sidebar_menu_button  student_info_page_button" href="assignment_page.html"> logout</a><br><br>
 
 
+        </div>
+         <div class="profile">
+            <img src="https://tse2.mm.bing.net/th/id/OIP.M1epdPIvWxZJb6hqqomitgHaHa?r=0&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Profile">
+            <button type="button " class="info_page_button" >Taqwa</button>
         </div>
 
     </aside>
@@ -86,7 +85,7 @@
 
                         <div class="card-body">
                             <h3 class="card-title">Total Courses Enrolled</h3>
-
+                            <h4>12</h4>
                             <p class="card-text">
                                 Every course is a new opportunity to grow!
                             </p>
@@ -102,7 +101,7 @@
 
                         <div class="card-body">
                             <h3 class="card-title">Courses Completed</h3>
-
+                            <h4>6</h4>
                             <p class="card-text">
                                 Great job! Every achievement counts.
                             </p>
@@ -119,7 +118,7 @@
 
                         <div class="card-body">
                             <h3 class="card-title">Courses In Progress</h3>
-
+                            <h4>3</h4>
                             <p class="card-text">
                                 Keep going! You're making progress.
                             </p>
@@ -136,7 +135,7 @@
 
                         <div class="card-body">
                             <h3 class="card-title">Courses Dropped</h3>
-
+                            <h4>3</h4>
                             <p class="card-text">
                                 Every experience is a lesson for the next step.
                             </p>
@@ -219,29 +218,44 @@
 
     <script>
 
-        /*document.getElementsByClassName("dash_button").addEventListener("click", move_to_dashboard_page);
-        function move_to_dashboard_page() {
-            window.location.href = "javascript_project.html";
+                
+        // Update Dashboard Statistics
+        function loadDashboardStatistics() {
+
+            // Get Courses from localStorage
+            const courses = JSON.parse(localStorage.getItem("courses")) || [];
+
+            // Calculate Courses Statistics
+            const totalCourses = courses.length;
+
+            const completedCourses = courses.filter(function(course) {
+                return course.status === "Completed";
+            }).length;
+
+            const inProgressCourses = courses.filter(function(course) {
+                return course.status === "In Progress";
+            }).length;
+
+            const droppedCourses = courses.filter(function(course) {
+                return course.status === "Dropped";
+            }).length;
+
+
+            // Get Statistics Elements
+            const statisticsNumbers = document.querySelectorAll(
+                ".statistics .card-body h4"
+            );
+
+            // Display Updated Statistics
+            statisticsNumbers[0].textContent = totalCourses;
+            statisticsNumbers[1].textContent = completedCourses;
+            statisticsNumbers[2].textContent = inProgressCourses;
+            statisticsNumbers[3].textContent = droppedCourses;
         }
 
 
-         document.getElementsByClassName("courses_page_button").addEventListener("click", move_to_courses_page_button);
-        function move_to_courses_page_button() {
-            window.location.href = "courses_page.html";
-        }
-
-        
-         document.getElementsByClassName("assignment_button").addEventListener("click", move_to_assignment_button);
-        function move_to_assignment_button() {
-            window.location.href = "assignment_page.html";
-        }
-
-        
-         document.getElementsByClassName("info_page_button").addEventListener("click", move_to_student_info_page);
-        function move_to_student_info_page() {
-            window.location.href = "student_info_page.html";
-        }
-*/
+        // Load Statistics when Dashboard Opens
+        loadDashboardStatistics();
 
 
     </script>
